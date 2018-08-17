@@ -1,5 +1,7 @@
 package co.com.ceiba.estacionamiento.dtos;
 
+import java.util.Date;
+
 public class ParqueoDto {
 
 	private String placa;
@@ -7,6 +9,16 @@ public class ParqueoDto {
 	private String tipoVehiculo;
 
 	private String cilindraje;
+
+	private Date fechaIngreso;
+
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
 
 	public String getCilindraje() {
 		return cilindraje;

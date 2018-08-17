@@ -26,13 +26,12 @@ public class Parqueo implements Serializable {
 	@NotEmpty
 	private String placa;
 
-	@NotEmpty
-	@Column(name = "fecha_ingreso")
-	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_ingreso", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaIngreso;
 
 	@Column(name = "fecha_salida", nullable = true)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaSalida;
 
 	@NotEmpty

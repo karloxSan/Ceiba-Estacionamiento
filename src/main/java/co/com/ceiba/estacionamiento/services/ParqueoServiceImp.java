@@ -31,4 +31,11 @@ public class ParqueoServiceImp implements IParqueoService {
 		return modelMapper.map(parqueoRepository.findAll(), listType);
 	}
 
+	@Override
+	@Transactional
+	public void crar(ParqueoDto parqueoDto) {
+		parqueoRepository.save(modelMapper.map(parqueoDto, Parqueo.class));
+
+	}
+
 }

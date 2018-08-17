@@ -8,4 +8,6 @@ public interface IParqueoService {
 
 	public List<ParqueoDto> findAll();
 
+	public void crar(ParqueoDto parqueoDto);
+
 }
