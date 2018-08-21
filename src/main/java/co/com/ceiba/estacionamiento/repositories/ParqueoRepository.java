@@ -14,4 +14,7 @@ public interface ParqueoRepository extends JpaRepository<Parqueo, Long> {
 	@Query("select p from Parqueo p where p.placa = ?1 and p.fechaSalida IS NULL ")
 	public List<Parqueo> findByPlaca(String placa);
 
+	@Query("select p from Parqueo p where p.fechaSalida IS NULL ")
+	public List<Parqueo> findAllParqueados();
+
 }

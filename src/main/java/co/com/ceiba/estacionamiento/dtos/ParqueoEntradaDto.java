@@ -2,7 +2,7 @@ package co.com.ceiba.estacionamiento.dtos;
 
 import java.util.Date;
 
-public class ParqueoDto {
+public class ParqueoEntradaDto {
 
 	private String placa;
 
