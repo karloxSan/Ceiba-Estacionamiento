@@ -22,7 +22,8 @@ public class ParqueoServiceImp implements IParqueoService {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
-	private FachadaValidacion fachadaValidacion = new FachadaValidacion();
+	@Autowired
+	private FachadaValidacion fachadaValidacion;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -37,7 +38,7 @@ public class ParqueoServiceImp implements IParqueoService {
 	@Override
 	@Transactional
 	public ParqueoDto crar(ParqueoDto parqueoDto) {
-		if (fachadaValidacion.validarEntrada(parqueoDto, parqueoRepository))
+		if (fachadaValidacion.validarEntrada(parqueoDto))
 			return modelMapper.map(parqueoRepository.saveAndFlush(modelMapper.map(parqueoDto, Parqueo.class)),
 					ParqueoDto.class);
 

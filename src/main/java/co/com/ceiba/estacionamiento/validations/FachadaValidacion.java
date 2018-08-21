@@ -1,12 +1,13 @@
 package co.com.ceiba.estacionamiento.validations;
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoDto;
-import co.com.ceiba.estacionamiento.entities.Parqueo;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 import co.com.ceiba.estacionamiento.util.Constante;
 
+@Component
 public class FachadaValidacion {
 
 	private ValidacionPlaca validacionPlaca;
@@ -15,8 +16,8 @@ public class FachadaValidacion {
 
 	private ValidacionCapacidad validacionCapacidad;
 
-//	@Autowired
-//	private ParqueoRepository parqueoRepository;
+	@Autowired
+	private ParqueoRepository parqueoRepository;
 
 	public FachadaValidacion() {
 
@@ -32,14 +33,10 @@ public class FachadaValidacion {
 	 * @param parqueoDto Vehiculo que desea ingresar al parqueadero
 	 * @return True si pasa todas las validaciones, False en caso contrario
 	 */
-	public boolean validarEntrada(ParqueoDto parqueoDto, ParqueoRepository parqueoRepository) {
-		long as = parqueoRepository.count();
+	public boolean validarEntrada(ParqueoDto parqueoDto) {
 
-		System.out.println(as);
-
-		List<Parqueo> a = parqueoRepository.findByPlaca(parqueoDto.getPlaca());
 		// Valida si el vehiculo se encuentra parqueado
-		if (a != null) {
+		if (parqueoRepository.findByPlaca(parqueoDto.getPlaca()).isEmpty()) {
 			if (validacionCapacidad.validacion(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO),
 					parqueoRepository.countByTipoVehiculo(Constante.TIPO_CARRO))) {
 				if (validacionPlaca.validacion(parqueoDto)) {
