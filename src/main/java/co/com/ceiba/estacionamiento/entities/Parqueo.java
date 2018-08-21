@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "PARQUEOS")
 public class Parqueo implements Serializable {
@@ -28,9 +30,11 @@ public class Parqueo implements Serializable {
 
 	@Column(name = "fecha_ingreso", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
 	private Date fechaIngreso;
 
 	@Column(name = "fecha_salida", nullable = true)
+	@DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaSalida;
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoDto;
+import co.com.ceiba.estacionamiento.entities.Parqueo;
 import co.com.ceiba.estacionamiento.services.IParqueoService;
 
 @RestController

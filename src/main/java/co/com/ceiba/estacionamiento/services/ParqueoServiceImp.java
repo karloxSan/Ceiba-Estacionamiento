@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.ceiba.estacionamiento.dtos.ParqueoDto;
 import co.com.ceiba.estacionamiento.entities.Parqueo;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
+import co.com.ceiba.estacionamiento.validations.FachadaValidacion;
 
 @Service
 public class ParqueoServiceImp implements IParqueoService {
@@ -21,11 +22,13 @@ public class ParqueoServiceImp implements IParqueoService {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
+	private FachadaValidacion fachadaValidacion = new FachadaValidacion();
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<ParqueoDto> findAll() {
 
-		Type listType = new TypeToken<List<Parqueo>>() {
+		Type listType = new TypeToken<List<ParqueoDto>>() {
 		}.getType();
 
 		return modelMapper.map(parqueoRepository.findAll(), listType);
@@ -33,8 +36,12 @@ public class ParqueoServiceImp implements IParqueoService {
 
 	@Override
 	@Transactional
-	public void crar(ParqueoDto parqueoDto) {
-		parqueoRepository.save(modelMapper.map(parqueoDto, Parqueo.class));
+	public ParqueoDto crar(ParqueoDto parqueoDto) {
+		if (fachadaValidacion.validarEntrada(parqueoDto, parqueoRepository))
+			return modelMapper.map(parqueoRepository.saveAndFlush(modelMapper.map(parqueoDto, Parqueo.class)),
+					ParqueoDto.class);
+
+		return null;
 
 	}
 
