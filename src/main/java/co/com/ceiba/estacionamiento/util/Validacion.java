@@ -1,6 +1,6 @@
 package co.com.ceiba.estacionamiento.util;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -96,10 +96,9 @@ public class Validacion {
 	 * @return True si el dia de ingreso es Domingo o Lunes, False en caso contrario
 	 */
 	public boolean validarDia(ParqueoEntradaDto parqueoEntradaDto) {
-		Date date = new Date();
 
-		return ((date.getDay() == 0 && parqueoEntradaDto.getFechaIngreso().getDay() == 0)
-				|| (date.getDay() == 1 && parqueoEntradaDto.getFechaIngreso().getDay() == 1));
+		return ((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
+				|| (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY));
 	}
 
 	/**
