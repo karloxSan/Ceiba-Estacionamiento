@@ -76,6 +76,8 @@ public class ParqueoServiceImp implements IParqueoService {
 			double cobro = calcularCobro.calcularCobro(parqueo.getFechaIngreso(), parqueo.getFechaSalida(),
 					parqueo.getTipoVehiculo(), parqueo.getCilindraje());
 			parqueo.setCosto(cobro);
+			parqueo.setTiempoCobrado(calcularCobro.getTiempoCobrado());
+			parqueo.setTiempoParqueado(calcularCobro.getTiempoParqueado());
 
 			parqueoRepository.save(parqueo);
 		}

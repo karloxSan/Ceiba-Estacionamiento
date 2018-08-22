@@ -16,14 +16,24 @@ public class ParqueoEntradaDto {
 
 	private double costo;
 
-	private String tiempo;
+	private String tiempoParqueado;
 
-	public String getTiempo() {
-		return tiempo;
+	private String tiempoCobrado;
+
+	public String getTiempoParqueado() {
+		return tiempoParqueado;
 	}
 
-	public void setTiempo(String tiempo) {
-		this.tiempo = tiempo;
+	public void setTiempoParqueado(String tiempoParqueado) {
+		this.tiempoParqueado = tiempoParqueado;
+	}
+
+	public String getTiempoCobrado() {
+		return tiempoCobrado;
+	}
+
+	public void setTiempoCobrado(String tiempoCobrado) {
+		this.tiempoCobrado = tiempoCobrado;
 	}
 
 	public String getPlaca() {

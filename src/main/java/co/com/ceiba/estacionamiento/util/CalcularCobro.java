@@ -10,7 +10,8 @@ public class CalcularCobro {
 	private int dias;
 	private int horas;
 	private int minutos;
-	private double cobro;
+	private String tiempoParqueado;
+	private String tiempoCobrado;
 
 	/**
 	 * Metodo que permite calcular la diferencia de dias, horas y minutos entre dos
@@ -23,6 +24,7 @@ public class CalcularCobro {
 		dias = 0;
 		horas = 0;
 		minutos = 0;
+		tiempoParqueado = "";
 
 		int diferencia = (int) ((fechaSalida.getTime() - fechaIngreso.getTime()) / 1000);
 
@@ -37,6 +39,7 @@ public class CalcularCobro {
 		if (diferencia >= 60) {
 			minutos = (diferencia / 60);
 		}
+		tiempoParqueado = "Dias: " + dias + "  Horas: " + horas + "  Minutos: " + minutos;
 
 	}
 
@@ -57,70 +60,55 @@ public class CalcularCobro {
 	 */
 	public double calcularCobro(Date fechaIngreso, Date fechaSalida, String tipovehiculo, int cilindraje) {
 		calcularDiferencia(fechaIngreso, fechaSalida);
+		return calcularCobroVehiculo(cilindraje, tipovehiculo);
 
-		if (tipovehiculo.equalsIgnoreCase(Constante.TIPO_CARRO)) {
-			return calcularCobroCarro();
+	}
+
+	/**
+	 * Metodo que permite calcular el cobro de una moto o carro
+	 * 
+	 * @param cilindraje Cilindraje de la moto o carro
+	 * @return Valor del cobro
+	 */
+	public double calcularCobroVehiculo(int cilindraje, String tipo) {
+		double cobro;
+		tiempoCobrado = "";
+
+		if (minutos > 0) {
+			horas++;
+			minutos = 0;
+		}
+
+		if (horas >= 9) {
+			if (horas < 24) {
+				dias++;
+				horas = 0;
+			} else {
+				dias++;
+				horas -= 24;
+			}
+		}
+
+		tiempoCobrado = "Dias: " + dias + "  Horas: " + horas + "  Minutos: " + minutos;
+
+		if (tipo.equalsIgnoreCase(Constante.TIPO_CARRO)) {
+			cobro = ((dias * Constante.VALOR_DIA_CARRO) + (horas * Constante.VALOR_HORA_CARRO));
 		} else {
-			return calcularCobroMoto(cilindraje);
-		}
+			cobro = ((dias * Constante.VALOR_DIA_MOTO) + (horas * Constante.VALOR_HORA_MOTO));
 
-	}
-
-	/**
-	 * Metodo que permite calcular el cobro de una moto
-	 * 
-	 * @param cilindraje Cilindraje de la moto
-	 * @return Valor del cobro
-	 */
-	public double calcularCobroMoto(int cilindraje) {
-		cobro = 0.0;
-
-		if (minutos > 0) {
-			horas++;
-		}
-
-		if (horas >= 9) {
-			if (horas < 24) {
-				dias++;
-				horas = 0;
-			} else {
-				dias++;
-				horas -= 24;
+			if (cilindraje > Constante.CILINDRAJE_MOTO) {
+				cobro += Constante.RECARGO_CILINDRAJE;
 			}
 		}
-		cobro = ((dias * Constante.VALOR_DIA_MOTO) + (horas * Constante.VALOR_HORA_MOTO));
-
-		if (cilindraje > Constante.CILINDRAJE_MOTO) {
-			cobro += Constante.RECARGO_CILINDRAJE;
-		}
-
 		return cobro;
 	}
 
-	/**
-	 * Metodo que permite calcular el cobro de un carro
-	 * 
-	 * @return Valor del cobro
-	 */
-	public double calcularCobroCarro() {
-		cobro = 0.0;
+	public String getTiempoParqueado() {
+		return tiempoParqueado;
+	}
 
-		if (minutos > 0) {
-			horas++;
-		}
-
-		if (horas >= 9) {
-			if (horas < 24) {
-				dias++;
-				horas = 0;
-			} else {
-				dias++;
-				horas -= 24;
-			}
-		}
-		cobro = ((dias * Constante.VALOR_DIA_CARRO) + (horas * Constante.VALOR_HORA_CARRO));
-
-		return cobro;
+	public String getTiempoCobrado() {
+		return tiempoCobrado;
 	}
 
 }

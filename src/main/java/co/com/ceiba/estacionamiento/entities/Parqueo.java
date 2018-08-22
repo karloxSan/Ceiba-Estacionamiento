@@ -48,7 +48,10 @@ public class Parqueo implements Serializable {
 	private double costo;
 
 	@Column(nullable = true)
-	private String tiempo;
+	private String tiempoParqueado;
+
+	@Column(nullable = true)
+	private String tiempoCobrado;
 
 	public Long getId() {
 		return id;
@@ -106,12 +109,20 @@ public class Parqueo implements Serializable {
 		this.costo = costo;
 	}
 
-	public String getTiempo() {
-		return tiempo;
+	public String getTiempoParqueado() {
+		return tiempoParqueado;
 	}
 
-	public void setTiempo(String tiempo) {
-		this.tiempo = tiempo;
+	public void setTiempoParqueado(String tiempoParqueado) {
+		this.tiempoParqueado = tiempoParqueado;
+	}
+
+	public String getTiempoCobrado() {
+		return tiempoCobrado;
+	}
+
+	public void setTiempoCobrado(String tiempoCobrado) {
+		this.tiempoCobrado = tiempoCobrado;
 	}
 
 }
