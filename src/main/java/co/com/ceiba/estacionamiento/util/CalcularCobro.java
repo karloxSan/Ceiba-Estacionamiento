@@ -1,56 +1,126 @@
 package co.com.ceiba.estacionamiento.util;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
-
 @Component
 public class CalcularCobro {
 
-	public int calcularDiferencia(Date fechaIngreso, Date fechaSalida, int tipo) {
+	private int dias;
+	private int horas;
+	private int minutos;
+	private double cobro;
 
-		Instant instant = Instant.ofEpochMilli(fechaIngreso.getTime());
-		LocalDateTime fechaEntradaCasteada = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+	/**
+	 * Metodo que permite calcular la diferencia de dias, horas y minutos entre dos
+	 * fechas
+	 * 
+	 * @param fechaIngreso Fecha en la cual ingreso el vehiculo al parqueadero
+	 * @param fechaSalida  Fecha en la cual sale el vehiculo del parqueadero
+	 */
+	public void calcularDiferencia(Date fechaIngreso, Date fechaSalida) {
+		dias = 0;
+		horas = 0;
+		minutos = 0;
 
-		Instant instantFechaSalida = Instant.ofEpochMilli(fechaSalida.getTime());
-		LocalDateTime fechaSalidaCasteada = LocalDateTime.ofInstant(instantFechaSalida, ZoneId.systemDefault());
+		int diferencia = (int) ((fechaSalida.getTime() - fechaIngreso.getTime()) / 1000);
 
-		java.time.Duration duracion = java.time.Duration.between(fechaEntradaCasteada, fechaSalidaCasteada);
-
-		Period periodo = Period.between(fechaEntradaCasteada.toLocalDate(), fechaSalidaCasteada.toLocalDate());
-		long seconds = duracion.getSeconds();
-
-		if (tipo == 1) {
-			// Retorna la diferencia de dias
-			return periodo.getDays();
-		} else if (tipo == 2) {
-			// Retorna la diferencia de horas
-			return (int) (seconds / 3600);
-		} else {
-			// Retorna la diferencia de minutos
-			return (int) ((seconds % 3600) / 60);
+		if (diferencia >= 86400) {
+			dias = (diferencia / 86400);
+			diferencia -= (dias * 86400);
+		}
+		if (diferencia >= 3600) {
+			horas = (diferencia / 3600);
+			diferencia -= (horas * 3600);
+		}
+		if (diferencia >= 60) {
+			minutos = (diferencia / 60);
 		}
 
 	}
 
-	public double calcularCobro(ParqueoEntradaDto parqueoSalidaDto) {
-		System.out.println("FechaIngreso  " + parqueoSalidaDto.getFechaIngreso() + "   FechaSalida    "
-				+ parqueoSalidaDto.getFechaSalida());
-		System.out.println("Dias   "
-				+ calcularDiferencia(parqueoSalidaDto.getFechaIngreso(), parqueoSalidaDto.getFechaSalida(), 1));
+	/**
+	 * Metodo que permite calcular el cobro de un vehiculo
+	 * 
+	 * @param parqueoSalidaDto Vehiculo que se encuentyra parqueado
+	 * @return El respectivo cobro
+	 */
+	/**
+	 * Metodo que permite calcular el cobro de parqueo del vehiculo
+	 * 
+	 * @param fechaIngreso Fecha en la cual ingreso el vehiculo al parqueadero
+	 * @param fechaSalida  Fecha en la cual sale el vehiculo del parqueadero
+	 * @param tipovehiculo El tip de vehiculo parqueado
+	 * @param cilindraje   El cilindraje del vehiculo
+	 * @return El costo total del parqueo del vehiculo
+	 */
+	public double calcularCobro(Date fechaIngreso, Date fechaSalida, String tipovehiculo, int cilindraje) {
+		calcularDiferencia(fechaIngreso, fechaSalida);
 
-		System.out.println("Horas   "
-				+ calcularDiferencia(parqueoSalidaDto.getFechaIngreso(), parqueoSalidaDto.getFechaSalida(), 2));
+		if (tipovehiculo.equalsIgnoreCase(Constante.TIPO_CARRO)) {
+			return calcularCobroCarro();
+		} else {
+			return calcularCobroMoto(cilindraje);
+		}
 
-		System.out.println("Minutos   "
-				+ calcularDiferencia(parqueoSalidaDto.getFechaIngreso(), parqueoSalidaDto.getFechaSalida(), 3));
-		return 0.0;
+	}
+
+	/**
+	 * Metodo que permite calcular el cobro de una moto
+	 * 
+	 * @param cilindraje Cilindraje de la moto
+	 * @return Valor del cobro
+	 */
+	public double calcularCobroMoto(int cilindraje) {
+		cobro = 0.0;
+
+		if (minutos > 0) {
+			horas++;
+		}
+
+		if (horas >= 9) {
+			if (horas < 24) {
+				dias++;
+				horas = 0;
+			} else {
+				dias++;
+				horas -= 24;
+			}
+		}
+		cobro = ((dias * Constante.VALOR_DIA_MOTO) + (horas * Constante.VALOR_HORA_MOTO));
+
+		if (cilindraje > Constante.CILINDRAJE_MOTO) {
+			cobro += Constante.RECARGO_CILINDRAJE;
+		}
+
+		return cobro;
+	}
+
+	/**
+	 * Metodo que permite calcular el cobro de un carro
+	 * 
+	 * @return Valor del cobro
+	 */
+	public double calcularCobroCarro() {
+		cobro = 0.0;
+
+		if (minutos > 0) {
+			horas++;
+		}
+
+		if (horas >= 9) {
+			if (horas < 24) {
+				dias++;
+				horas = 0;
+			} else {
+				dias++;
+				horas -= 24;
+			}
+		}
+		cobro = ((dias * Constante.VALOR_DIA_CARRO) + (horas * Constante.VALOR_HORA_CARRO));
+
+		return cobro;
 	}
 
 }

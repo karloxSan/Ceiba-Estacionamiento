@@ -3,7 +3,6 @@ package co.com.ceiba.estacionamiento.services;
 import java.util.List;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
-import co.com.ceiba.estacionamiento.entities.Parqueo;
 
 public interface IParqueoService {
 
@@ -13,6 +12,6 @@ public interface IParqueoService {
 
 	public ParqueoEntradaDto findByPlaca(String placa);
 
-	public ParqueoEntradaDto actualizarParqueo(String placa);
+	public void actualizarParqueo(String placa);
 
 }

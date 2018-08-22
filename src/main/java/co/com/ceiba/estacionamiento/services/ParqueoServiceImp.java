@@ -56,8 +56,7 @@ public class ParqueoServiceImp implements IParqueoService {
 	@Override
 	@Transactional
 	public ParqueoEntradaDto crear(ParqueoEntradaDto parqueoEntradaDto) {
-		Date ahora = new Date();
-		parqueoEntradaDto.setFechaIngreso(ahora);
+		parqueoEntradaDto.setFechaIngreso(new Date());
 		if (validacion.validarEntrada(parqueoEntradaDto))
 			return modelMapper.map(parqueoRepository.saveAndFlush(modelMapper.map(parqueoEntradaDto, Parqueo.class)),
 					ParqueoEntradaDto.class);
@@ -68,16 +67,19 @@ public class ParqueoServiceImp implements IParqueoService {
 
 	@Override
 	@Transactional
-	public ParqueoEntradaDto actualizarParqueo(String placa) {
-		Date ahora = new Date();
-		ParqueoEntradaDto parqueo = modelMapper.map(parqueoRepository.findByPlaca(placa), ParqueoEntradaDto.class);
+	public void actualizarParqueo(String placa) {
+
+		Parqueo parqueo = parqueoRepository.findByPlaca(placa);
+
 		if (parqueo != null) {
-			parqueo.setFechaSalida(ahora);
-			double costo = calcularCobro.calcularCobro(parqueo);
-			System.out.println(costo);
+			parqueo.setFechaSalida(new Date());
+			double cobro = calcularCobro.calcularCobro(parqueo.getFechaIngreso(), parqueo.getFechaSalida(),
+					parqueo.getTipoVehiculo(), parqueo.getCilindraje());
+			parqueo.setCosto(cobro);
+
+			parqueoRepository.save(parqueo);
 		}
 
-		return null;
 	}
 
 }

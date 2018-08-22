@@ -36,8 +36,8 @@ public class ParqueoController {
 	}
 
 	@GetMapping(value = "/sacar/{placa}")
-	public ParqueoEntradaDto actualizarParqueo(@PathVariable String placa) {
-		return parqueoService.actualizarParqueo(placa);
+	public void actualizarParqueo(@PathVariable String placa) {
+		parqueoService.actualizarParqueo(placa);
 	}
 
 }
