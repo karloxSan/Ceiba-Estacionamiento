@@ -76,6 +76,7 @@ public class Validacion {
 		return cantCarro < Constante.CAPACIDAD_CARRO;
 	}
 
+	
 	/**
 	 * Metodo que permite conocer si el parqueadero llego a su capadidad de
 	 * vehiculos 10 Motos
