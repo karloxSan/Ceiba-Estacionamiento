@@ -34,18 +34,21 @@ public class Parqueo implements Serializable {
 	private Date fechaIngreso;
 
 	@Column(name = "fecha_salida", nullable = true)
-	@DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "HH:mm:ss dd/MM/yyyy")
 	private Date fechaSalida;
 
 	@NotEmpty
 	private String tipoVehiculo;
 
 	@Column(nullable = true)
-	private String cilindraje;
+	private int cilindraje;
 
 	@Column(nullable = true)
 	private double costo;
+
+	@Column(nullable = true)
+	private String tiempo;
 
 	public Long getId() {
 		return id;
@@ -87,11 +90,11 @@ public class Parqueo implements Serializable {
 		this.tipoVehiculo = tipoVehiculo;
 	}
 
-	public String getCilindraje() {
+	public int getCilindraje() {
 		return cilindraje;
 	}
 
-	public void setCilindraje(String cilindraje) {
+	public void setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 	}
 
@@ -99,8 +102,16 @@ public class Parqueo implements Serializable {
 		return costo;
 	}
 
-	public void setCosto(int costo) {
+	public void setCosto(double costo) {
 		this.costo = costo;
+	}
+
+	public String getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(String tiempo) {
+		this.tiempo = tiempo;
 	}
 
 }

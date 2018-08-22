@@ -8,24 +8,22 @@ public class ParqueoEntradaDto {
 
 	private String tipoVehiculo;
 
-	private String cilindraje;
+	private int cilindraje;
 
 	private Date fechaIngreso;
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
+	private Date fechaSalida;
+
+	private double costo;
+
+	private String tiempo;
+
+	public String getTiempo() {
+		return tiempo;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
-
-	public String getCilindraje() {
-		return cilindraje;
-	}
-
-	public void setCilindraje(String cilindraje) {
-		this.cilindraje = cilindraje;
+	public void setTiempo(String tiempo) {
+		this.tiempo = tiempo;
 	}
 
 	public String getPlaca() {
@@ -42,6 +40,38 @@ public class ParqueoEntradaDto {
 
 	public void setTipoVehiculo(String tipoVehiculo) {
 		this.tipoVehiculo = tipoVehiculo;
+	}
+
+	public int getCilindraje() {
+		return cilindraje;
+	}
+
+	public void setCilindraje(int cilindraje) {
+		this.cilindraje = cilindraje;
+	}
+
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public Date getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public void setFechaSalida(Date fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+
+	public double getCosto() {
+		return costo;
+	}
+
+	public void setCosto(double costo) {
+		this.costo = costo;
 	}
 
 }

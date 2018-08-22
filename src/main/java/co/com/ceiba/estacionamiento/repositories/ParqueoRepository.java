@@ -9,10 +9,11 @@ import co.com.ceiba.estacionamiento.entities.Parqueo;
 
 public interface ParqueoRepository extends JpaRepository<Parqueo, Long> {
 
+	@Query("select COUNT (p.tipoVehiculo)  from Parqueo p where p.tipoVehiculo = ?1 and p.fechaSalida IS NULL ")
 	public long countByTipoVehiculo(String tipo);
 
 	@Query("select p from Parqueo p where p.placa = ?1 and p.fechaSalida IS NULL ")
-	public List<Parqueo> findByPlaca(String placa);
+	public Parqueo findByPlaca(String placa);
 
 	@Query("select p from Parqueo p where p.fechaSalida IS NULL ")
 	public List<Parqueo> findAllParqueados();

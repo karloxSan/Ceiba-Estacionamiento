@@ -23,32 +23,70 @@ public class Validacion {
 	public boolean validarEntrada(ParqueoEntradaDto parqueoEntradaDto) {
 
 		// Valida si el vehiculo se encuentra parqueado
-		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()).isEmpty()) {
-			if (validarCapacidad(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO),
-					parqueoRepository.countByTipoVehiculo(Constante.TIPO_CARRO))) {
+		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) == null) {
+
+			if (validarCapacidadCarro(parqueoRepository.countByTipoVehiculo(Constante.TIPO_CARRO))
+					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_CARRO)) {
+
 				if (validarPlaca(parqueoEntradaDto)) {
 					return validarDia(parqueoEntradaDto);
 				}
 				return true;
+
 			}
+
+			if (validarCapacidadMoto(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO))
+					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_MOTO)) {
+				if (validarPlaca(parqueoEntradaDto)) {
+					return validarDia(parqueoEntradaDto);
+				}
+				return true;
+
+			}
+
 			return false;
+
 		}
 
 		return false;
 	}
 
 	/**
+	 * Metodo que permite validar si el cilindraje de la moto es mayor a 500 cc
+	 * 
+	 * @param parqueoSalidaDto Vehiculo que desea salir del parqueadero
+	 * @return True si el cilindraje es mayor a 500cc, false en caso contrario
+	 */
+	public boolean validarCilindraje(ParqueoEntradaDto parqueoSalidaDto) {
+		return (parqueoSalidaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_MOTO)
+				&& parqueoSalidaDto.getCilindraje() >= Constante.CILINDRAJE_MOTO);
+
+	}
+
+	/**
 	 * Metodo que permite conocer si el parqueadero llego a su capadidad de
-	 * vehiculos 10 Motos, 20 Carros
+	 * vehiculos 20 Carros
 	 * 
 	 * @param parqueoEntradaDto Vehiculo que ingresa al parqueadero
 	 * @param cantMoto          Cantidad de motos parqueadas
 	 * @param cantCarro         Cantidad de carros parqueados
 	 * @return True si el parqueadero aun cuenta con disponibilidad
 	 */
-	public boolean validarCapacidad(long cantMoto, long cantCarro) {
+	public boolean validarCapacidadCarro(long cantCarro) {
+		return cantCarro < Constante.CAPACIDAD_CARRO;
+	}
 
-		return cantCarro <= Constante.CAPACIDAD_CARRO || cantMoto <= Constante.CAPACIDAD_MOTO;
+	/**
+	 * Metodo que permite conocer si el parqueadero llego a su capadidad de
+	 * vehiculos 10 Motos
+	 * 
+	 * @param parqueoEntradaDto Vehiculo que ingresa al parqueadero
+	 * @param cantMoto          Cantidad de motos parqueadas
+	 * @param cantCarro         Cantidad de carros parqueados
+	 * @return True si el parqueadero aun cuenta con disponibilidad
+	 */
+	public boolean validarCapacidadMoto(long cantMoto) {
+		return cantMoto < Constante.CAPACIDAD_MOTO;
 	}
 
 	/**

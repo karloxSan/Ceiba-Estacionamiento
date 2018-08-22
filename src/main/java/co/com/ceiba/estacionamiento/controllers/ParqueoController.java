@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
-import co.com.ceiba.estacionamiento.dtos.ParqueoSalidaDto;
 import co.com.ceiba.estacionamiento.services.IParqueoService;
 
 @RestController
@@ -22,23 +21,23 @@ public class ParqueoController {
 	private IParqueoService parqueoService;
 
 	@GetMapping(value = "/listar_parqueados")
-	public List<ParqueoSalidaDto> listarParqueo() {
+	public List<ParqueoEntradaDto> listarParqueo() {
 		return parqueoService.findAllParqueados();
 	}
 
 	@PostMapping("/crear")
 	public void crearParqueo(@RequestBody ParqueoEntradaDto parqueoEntradaDto) {
-		parqueoService.crar(parqueoEntradaDto);
+		parqueoService.crear(parqueoEntradaDto);
 	}
 
 	@GetMapping(value = "/buscar/{placa}")
-	public ParqueoSalidaDto buscarParqueo(@PathVariable String placa) {
+	public ParqueoEntradaDto buscarParqueo(@PathVariable String placa) {
 		return parqueoService.findByPlaca(placa);
 	}
-	
+
 	@GetMapping(value = "/sacar/{placa}")
-	public ParqueoSalidaDto actualizarParqueo(@PathVariable String placa) {
-		return parqueoService.findByPlaca(placa);
+	public ParqueoEntradaDto actualizarParqueo(@PathVariable String placa) {
+		return parqueoService.actualizarParqueo(placa);
 	}
 
 }
