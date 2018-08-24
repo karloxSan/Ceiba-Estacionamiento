@@ -40,14 +40,12 @@ dependencies {
 	
 }
 
-task jacoco(group: 'verification', dependsOn: jacocoTestReport) {
-}
 
-jacocoTestReport {
-   group = "Reporting"
-   reports {
-       xml.enabled true
-       csv.enabled false
-       html.destination file("${buildDir}/jacocoHtml")
+test {
+jacoco {
+append = false
+destinationFile = file("build/jacoco/jacocoTest.exec")
 }
+reports.junitXml.destination = file ("build/test-results")
 }
+jacocoTestReport.dependsOn(test)
