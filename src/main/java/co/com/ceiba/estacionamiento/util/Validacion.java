@@ -46,7 +46,9 @@ public class Validacion {
 			if (validarCapacidadMoto(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO))
 					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_MOTO)) {
 				if (validarPlaca(parqueoEntradaDto)) {
+
 					if (!validarDia(parqueoEntradaDto)) {
+
 						throw new NoAutorizadoException();
 					}
 				}

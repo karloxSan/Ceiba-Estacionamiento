@@ -20,6 +20,7 @@ import co.com.ceiba.estacionamiento.builder.MotoSinPlacaSinCilindraje;
 import co.com.ceiba.estacionamiento.builder.ParqueoBuilderInicial;
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
 import co.com.ceiba.estacionamiento.entities.Parqueo;
+import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 
 @RunWith(SpringRunner.class)
@@ -46,45 +47,45 @@ public class ParqueoControllerTest {
 
 	}
 
-//	// --------------------- INGRESAR VEHICULO --------------------------
-//	@Test
-//	public void ingresarVehiculoNotNull() {
-//		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(carroSinPlacaSinDia);
-//		parqueoBuilderInicial.crearParqueo();
-//
-//		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
-//
-//		try {
-//
-//			ParqueoEntradaDto parqueo = parqueoService.ingresarVehiculo(parqueoEntradaDto);
-//			parqueoRepository.deleteAll();
-//
-//			assertNotNull(parqueo);
-//
-//		} catch (NoAutorizadoException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	@Test
-//	public void ingresarVehiculoNull() {
-//		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(motoSinPlacaSinCilindraje);
-//		parqueoBuilderInicial.crearParqueo();
-//
-//		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
-//
-//		try {
-//			parqueoService.ingresarVehiculo(parqueoEntradaDto);
-//
-//			ParqueoEntradaDto parqueo = parqueoService.ingresarVehiculo(parqueoEntradaDto);
-//			parqueoRepository.deleteAll();
-//
-//			assertNull(parqueo);
-//
-//		} catch (NoAutorizadoException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	// --------------------- INGRESAR VEHICULO --------------------------
+	@Test
+	public void ingresarVehiculoNotNull() {
+		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(carroSinPlacaSinDia);
+		parqueoBuilderInicial.crearParqueo();
+
+		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
+
+		try {
+
+			ParqueoEntradaDto parqueo = parqueoController.crearParqueo(parqueoEntradaDto);
+			parqueoRepository.deleteAll();
+
+			assertNotNull(parqueo);
+
+		} catch (NoAutorizadoException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void ingresarVehiculoNull() {
+		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(motoSinPlacaSinCilindraje);
+		parqueoBuilderInicial.crearParqueo();
+
+		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
+
+		try {
+			parqueoController.crearParqueo(parqueoEntradaDto);
+
+			ParqueoEntradaDto parqueo = parqueoController.crearParqueo(parqueoEntradaDto);
+			parqueoRepository.deleteAll();
+
+			assertNull(parqueo);
+
+		} catch (NoAutorizadoException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// ---------------------------RETITAR VEHICULO------------------------
 

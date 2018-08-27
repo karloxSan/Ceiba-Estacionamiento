@@ -45,16 +45,15 @@ public class ParqueoController {
 	 * Metodo POST que permite ingresar un vehiculo al parqueadero
 	 * 
 	 * @param parqueoEntradaDto Vehiculo parqueadeo
+	 * @throws NoAutorizadoException
 	 */
 	@PostMapping("/parqueadero")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void crearParqueo(@RequestBody ParqueoEntradaDto parqueoEntradaDto) {
-		try {
-			parqueoService.ingresarVehiculo(parqueoEntradaDto);
-		} catch (NoAutorizadoException e) {
-			e.printStackTrace();
-		}
+	public ParqueoEntradaDto crearParqueo(@RequestBody ParqueoEntradaDto parqueoEntradaDto)
+			throws NoAutorizadoException {
+		return parqueoService.ingresarVehiculo(parqueoEntradaDto);
 	}
+	
 
 	/**
 	 * Metodo GET que permite buscar un vehiculo parquedao por la placa

@@ -37,6 +37,7 @@ public class Vigilante {
 	private static final ModelMapper modelMapper = new ModelMapper();
 
 	
+	
 	/**
 	 * Metodo que realiza el ingreso de un vehiculo al parqueadero
 	 * 
@@ -51,7 +52,7 @@ public class Vigilante {
 			return modelMapper.map(parqueoRepository.saveAndFlush(modelMapper.map(parqueoEntradaDto, Parqueo.class)),
 					ParqueoEntradaDto.class);
 		}
-
+ 
 		return null;
 	}
 
