@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">6</div>
+<div class="counter">19</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.675s</div>
+<div class="counter">0.707s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,12 +79,12 @@
 </thead>
 <tr>
 <td class="success">validarCapacidadCarroFalse</td>
-<td class="success">0.625s</td>
+<td class="success">0.597s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">validarCapacidadCarroTrue</td>
-<td class="success">0.003s</td>
+<td class="success">0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -98,13 +98,78 @@
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">validarPlacaFalse</td>
-<td class="success">0.034s</td>
+<td class="success">validarCarroConPlacaConDia</td>
+<td class="success">0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">validarPlacaTrue</td>
+<td class="success">validarCarroConPlacaSinDia</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarCarroSinPlaca</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoCarroConPlacaConDia</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoCarroConPlacaSinDia</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoCarroParqueda</td>
+<td class="success">0.031s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoCarroSinDiponibilidad</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoMotoConPlacaConDia</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoMotoConPlacaSinDia</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoMotoParqueda</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarIngresoMotoSinDiponibilidad</td>
 <td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarMotoConCilindraje</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarMotoConPlaca</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarMotoConPlacaConDia</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">validarMotoSinCilindraje</td>
+<td class="success">0.004s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -112,12 +177,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2018-08-24 12:54:02.136  INFO 4896 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [co.com.ceiba.estacionamiento.util.ValidacionTest], using SpringBootContextLoader
-2018-08-24 12:54:02.140  INFO 4896 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [co.com.ceiba.estacionamiento.util.ValidacionTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2018-08-24 12:54:02.140  INFO 4896 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [co.com.ceiba.estacionamiento.util.ValidacionTest]: ValidacionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2018-08-24 12:54:02.161  INFO 4896 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration co.com.ceiba.estacionamiento.EstacionamientoApplication for test class co.com.ceiba.estacionamiento.util.ValidacionTest
-2018-08-24 12:54:02.163  INFO 4896 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-2018-08-24 12:54:02.165  INFO 4896 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@136874cd, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@145c88a8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4f356c84, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2b55b2ae, org.springframework.test.context.support.DirtiesContextTestExecutionListener@7bcb6515, org.springframework.test.context.transaction.TransactionalTestExecutionListener@b22bb0c, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6f17b7a0, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6951a82e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@49928bdc, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@57f6a339, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@50ea4d0, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@61fa7c87]
+<pre>2018-08-26 19:36:29.375  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [co.com.ceiba.estacionamiento.util.ValidacionTest], using SpringBootContextLoader
+2018-08-26 19:36:29.376  INFO 6508 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [co.com.ceiba.estacionamiento.util.ValidacionTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2018-08-26 19:36:29.377  INFO 6508 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [co.com.ceiba.estacionamiento.util.ValidacionTest]: ValidacionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2018-08-26 19:36:29.379  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration co.com.ceiba.estacionamiento.EstacionamientoApplication for test class co.com.ceiba.estacionamiento.util.ValidacionTest
+2018-08-26 19:36:29.381  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-08-26 19:36:29.382  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@ad608f5, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5da1c64b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@e2fc292, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4a4c0f7a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@70e72766, org.springframework.test.context.transaction.TransactionalTestExecutionListener@232734af, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@536c490b, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@79f1bbc3, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@30e47f8c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2afca773, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1b699736, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6fb2083b]
 </pre>
 </span>
 </div>
@@ -129,7 +194,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 4.8.1</a> at Aug 24, 2018 12:54:03 PM</p>
+<a href="http://www.gradle.org">Gradle 4.8.1</a> at Aug 26, 2018 7:36:30 PM</p>
 </div>
 </div>
 </body>

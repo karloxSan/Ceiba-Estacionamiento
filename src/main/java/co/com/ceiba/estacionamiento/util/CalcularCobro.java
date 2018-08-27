@@ -4,6 +4,10 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Clase de soporte al vigilante para calcular el cobro del parqueo a los
+ * vehiculos
+ */
 @Component
 public class CalcularCobro {
 
@@ -26,18 +30,18 @@ public class CalcularCobro {
 		minutos = 0;
 		tiempoParqueado = "";
 
-		int diferencia = (int) ((fechaSalida.getTime() - fechaIngreso.getTime()) / 1000);
+		int diferencia = (int) ((fechaSalida.getTime() - fechaIngreso.getTime()) / Constante.DIVISION_MIL);
 
-		if (diferencia >= 86400) {
-			dias = (diferencia / 86400);
-			diferencia -= (dias * 86400);
+		if (diferencia >= Constante.DIA_MILISEGUNDO) {
+			dias = (diferencia / Constante.DIA_MILISEGUNDO);
+			diferencia -= (dias * Constante.DIA_MILISEGUNDO);
 		}
-		if (diferencia >= 3600) {
-			horas = (diferencia / 3600);
-			diferencia -= (horas * 3600);
+		if (diferencia >= Constante.HORA_MILISEGUNDO) {
+			horas = (diferencia / Constante.HORA_MILISEGUNDO);
+			diferencia -= (horas * Constante.HORA_MILISEGUNDO);
 		}
-		if (diferencia >= 60) {
-			minutos = (diferencia / 60);
+		if (diferencia >= Constante.MINUTO_MILISEGUNDO) {
+			minutos = (diferencia / Constante.MINUTO_MILISEGUNDO);
 		}
 		tiempoParqueado = "Dias: " + dias + "  Horas: " + horas + "  Minutos: " + minutos;
 

@@ -15,8 +15,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
+import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
 import co.com.ceiba.estacionamiento.services.IParqueoService;
 
+/**
+ * 
+ * Clase controller que expone el serviucio REST a los clientes
+ *
+ */
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api")
@@ -25,25 +31,51 @@ public class ParqueoController {
 	@Autowired
 	private IParqueoService parqueoService;
 
+	/**
+	 * Metodo GET que permite listar los vehiculos que se encuentran parqueados
+	 * 
+	 * @return La lista de vehiculos parqueados
+	 */
 	@GetMapping(value = "/parqueadero")
 	public List<ParqueoEntradaDto> listarParqueo() {
 		return parqueoService.findAllParqueados();
 	}
 
+	/**
+	 * Metodo POST que permite ingresar un vehiculo al parqueadero
+	 * 
+	 * @param parqueoEntradaDto Vehiculo parqueadeo
+	 */
 	@PostMapping("/parqueadero")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void crearParqueo(@RequestBody ParqueoEntradaDto parqueoEntradaDto) {
-		parqueoService.crear(parqueoEntradaDto);
+		try {
+			parqueoService.ingresarVehiculo(parqueoEntradaDto);
+		} catch (NoAutorizadoException e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * Metodo GET que permite buscar un vehiculo parquedao por la placa
+	 * 
+	 * @param placa La placa del vehiculo
+	 * @return El vehiculo que coincide con la placa
+	 */
 	@GetMapping(value = "/parqueadero/{placa}")
 	public ParqueoEntradaDto buscarParqueo(@PathVariable String placa) {
 		return parqueoService.findByPlaca(placa);
 	}
 
+	/**
+	 * Metodo PUT que permite sacar y cobrar a un vehiculo el tiempo de parqueo
+	 * 
+	 * @param placa La placa del vehiculo que va salir
+	 * @return El vehiculo que salio del parqueadero
+	 */
 	@PutMapping(value = "/parqueadero/{placa}")
-	public void actualizarParqueo(@PathVariable String placa) {
-		parqueoService.actualizarParqueo(placa);
+	public ParqueoEntradaDto actualizarParqueo(@PathVariable String placa) {
+		return parqueoService.retirarVehiculo(placa);
 	}
 
 }

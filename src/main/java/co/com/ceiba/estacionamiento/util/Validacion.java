@@ -2,25 +2,31 @@ package co.com.ceiba.estacionamiento.util;
 
 import java.util.Calendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
+import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 
+/**
+ * Clase de soporte al vigilante que permite realizar las respectivas
+ * validaciones
+ * 
+ */
 @Component
 public class Validacion {
 
-	@Autowired
-	private ParqueoRepository parqueoRepository;
-
 	/**
-	 * Metodo que permite validar la entrada de un vehiculo al parquedero
+	 * Metodo que permite validar el ingreso de un vehiculo al parqueadero
 	 * 
-	 * @param parqueoEntradaDto Vehiculo que desea ingresar al parqueadero
-	 * @return True si pasa todas las validaciones, False en caso contrario
+	 * @param parqueoEntradaDto El vehiculo que desea ingresar
+	 * @param parqueoRepository el repositirio de datos
+	 * @return True si pasa con todas las validaciones de ingreso, false en caso
+	 *         contrario
+	 * @throws NoAutorizadoException
 	 */
-	public boolean validarEntrada(ParqueoEntradaDto parqueoEntradaDto) {
+	public boolean ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto, ParqueoRepository parqueoRepository)
+			throws NoAutorizadoException {
 
 		// Valida si el vehiculo se encuentra parqueado
 		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) == null) {
@@ -29,7 +35,9 @@ public class Validacion {
 					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_CARRO)) {
 
 				if (validarPlaca(parqueoEntradaDto)) {
-					return validarDia(parqueoEntradaDto);
+					if (!validarDia(parqueoEntradaDto)) {
+						throw new NoAutorizadoException();
+					}
 				}
 				return true;
 
@@ -38,7 +46,9 @@ public class Validacion {
 			if (validarCapacidadMoto(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO))
 					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_MOTO)) {
 				if (validarPlaca(parqueoEntradaDto)) {
-					return validarDia(parqueoEntradaDto);
+					if (!validarDia(parqueoEntradaDto)) {
+						throw new NoAutorizadoException();
+					}
 				}
 				return true;
 
@@ -52,42 +62,35 @@ public class Validacion {
 	}
 
 	/**
+	 * Metodo que permite validar la capacidad del parqueadero para carros
+	 * 
+	 * @param cantCarro La cantidad de carros almacenados
+	 * @return True si aun se cuenta con espacios disponibles, False en caso
+	 *         contrario
+	 */
+	public boolean validarCapacidadCarro(long cantCarro) {
+		return cantCarro < Constante.CAPACIDAD_CARRO;
+	}
+
+	/**
+	 * Metodo que permite validar la capacidad del parqueadero para motos
+	 * 
+	 * @param cantMoto La cantidad de motos almacenados
+	 * @return True si aun se cuenta con espacios disponibles, False en caso
+	 *         contrario
+	 */
+	public boolean validarCapacidadMoto(long cantMoto) {
+		return cantMoto < Constante.CAPACIDAD_MOTO;
+	}
+
+	/**
 	 * Metodo que permite validar si el cilindraje de la moto es mayor a 500 cc
 	 * 
 	 * @param parqueoSalidaDto Vehiculo que desea salir del parqueadero
 	 * @return True si el cilindraje es mayor a 500cc, false en caso contrario
 	 */
 	public boolean validarCilindraje(ParqueoEntradaDto parqueoSalidaDto) {
-		return (parqueoSalidaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_MOTO)
-				&& parqueoSalidaDto.getCilindraje() >= Constante.CILINDRAJE_MOTO);
-
-	}
-
-	/**
-	 * Metodo que permite conocer si el parqueadero llego a su capadidad de
-	 * vehiculos 20 Carros
-	 * 
-	 * @param parqueoEntradaDto Vehiculo que ingresa al parqueadero
-	 * @param cantMoto          Cantidad de motos parqueadas
-	 * @param cantCarro         Cantidad de carros parqueados
-	 * @return True si el parqueadero aun cuenta con disponibilidad
-	 */
-	public boolean validarCapacidadCarro(long cantCarro) {
-		return cantCarro < Constante.CAPACIDAD_CARRO;
-	}
-
-	
-	/**
-	 * Metodo que permite conocer si el parqueadero llego a su capadidad de
-	 * vehiculos 10 Motos
-	 * 
-	 * @param parqueoEntradaDto Vehiculo que ingresa al parqueadero
-	 * @param cantMoto          Cantidad de motos parqueadas
-	 * @param cantCarro         Cantidad de carros parqueados
-	 * @return True si el parqueadero aun cuenta con disponibilidad
-	 */
-	public boolean validarCapacidadMoto(long cantMoto) {
-		return cantMoto < Constante.CAPACIDAD_MOTO;
+		return (parqueoSalidaDto.getCilindraje() >= Constante.CILINDRAJE_MOTO);
 	}
 
 	/**
@@ -97,9 +100,11 @@ public class Validacion {
 	 * @return True si el dia de ingreso es Domingo o Lunes, False en caso contrario
 	 */
 	public boolean validarDia(ParqueoEntradaDto parqueoEntradaDto) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(parqueoEntradaDto.getFechaIngreso());
 
-		return ((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
-				|| (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY));
+		return ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
+				|| (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY));
 	}
 
 	/**
