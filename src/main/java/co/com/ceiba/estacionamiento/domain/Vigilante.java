@@ -36,6 +36,7 @@ public class Vigilante {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
+	
 	/**
 	 * Metodo que realiza el ingreso de un vehiculo al parqueadero
 	 * 
