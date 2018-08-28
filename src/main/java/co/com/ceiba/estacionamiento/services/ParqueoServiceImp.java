@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.ceiba.estacionamiento.domain.Vigilante;
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
+import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
 import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
+import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
 
 /**
  * Clase que implementa el contrato de la interfaz IParqueoService
@@ -52,7 +54,7 @@ public class ParqueoServiceImp implements IParqueoService {
 	 */
 	@Override
 	@Transactional
-	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto) throws NoAutorizadoException {
+	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto) throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
 		return vigilante.ingresarVehiculo(parqueoEntradaDto);
 	}
 

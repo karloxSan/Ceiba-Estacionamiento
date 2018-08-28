@@ -5,7 +5,9 @@ import java.util.Calendar;
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
+import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
 import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
+import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 
 /**
@@ -24,9 +26,11 @@ public class Validacion {
 	 * @return True si pasa con todas las validaciones de ingreso, false en caso
 	 *         contrario
 	 * @throws NoAutorizadoException
+	 * @throws VehiculoParqueadoException
+	 * @throws CapacidadExcedidaException
 	 */
 	public boolean ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto, ParqueoRepository parqueoRepository)
-			throws NoAutorizadoException {
+			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
 
 		// Valida si el vehiculo se encuentra parqueado
 		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) == null) {
@@ -56,11 +60,11 @@ public class Validacion {
 
 			}
 
-			return false;
+			throw new CapacidadExcedidaException();
 
 		}
 
-		return false;
+		throw new VehiculoParqueadoException();
 	}
 
 	/**
