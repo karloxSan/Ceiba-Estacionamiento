@@ -11,9 +11,7 @@ import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
 import co.com.ceiba.estacionamiento.entities.Parqueo;
-import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
-import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
-import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
+import co.com.ceiba.estacionamiento.exception.ValidacionException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 import co.com.ceiba.estacionamiento.util.CalcularCobro;
 import co.com.ceiba.estacionamiento.util.Validacion;
@@ -45,8 +43,7 @@ public class Vigilante {
 	 * @return El vehiculo ingreso en caso exito, y null en cao contrario
 	 * @throws NoAutorizadoException
 	 */
-	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto)
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto) throws ValidacionException {
 		parqueoEntradaDto.setFechaIngreso(new Date());
 		if (validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository)) {
 

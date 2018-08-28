@@ -15,6 +15,9 @@ public final class Constante {
 	public static final int DIA_MILISEGUNDO = 86400;
 	public static final int HORA_MILISEGUNDO = 3600;
 	public static final int MINUTO_MILISEGUNDO = 60;
+	public static final String EXCEPTION_CAPACIDAD = "La capacidad del parqueadero a excedido";
+	public static final String EXCEPTION_VEHICULO_PARQUEADO = "El vehiculo ya se encuentra parqueado";
+	public static final String EXCEPTION_NO_AUTORIZADO = "No esta autrizado a entrar";
 
 	private Constante() {
 	}

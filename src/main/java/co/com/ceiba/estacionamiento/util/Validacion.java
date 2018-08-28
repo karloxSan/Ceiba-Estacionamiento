@@ -5,9 +5,7 @@ import java.util.Calendar;
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
-import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
-import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
-import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
+import co.com.ceiba.estacionamiento.exception.ValidacionException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 
 /**
@@ -27,10 +25,10 @@ public class Validacion {
 	 *         contrario
 	 * @throws NoAutorizadoException
 	 * @throws VehiculoParqueadoException
-	 * @throws CapacidadExcedidaException
+	 * @throws ValidacionException
 	 */
 	public boolean ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto, ParqueoRepository parqueoRepository)
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+			throws ValidacionException {
 
 		// Valida si el vehiculo se encuentra parqueado
 		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) == null) {
@@ -40,7 +38,7 @@ public class Validacion {
 
 				if (validarPlaca(parqueoEntradaDto)) {
 					if (!validarDia(parqueoEntradaDto)) {
-						throw new NoAutorizadoException();
+						throw new ValidacionException(Constante.EXCEPTION_NO_AUTORIZADO);
 					}
 				}
 				return true;
@@ -53,18 +51,18 @@ public class Validacion {
 
 					if (!validarDia(parqueoEntradaDto)) {
 
-						throw new NoAutorizadoException();
+						throw new ValidacionException(Constante.EXCEPTION_NO_AUTORIZADO);
 					}
 				}
 				return true;
 
 			}
 
-			throw new CapacidadExcedidaException();
+			throw new ValidacionException(Constante.EXCEPTION_CAPACIDAD);
 
 		}
 
-		throw new VehiculoParqueadoException();
+		throw new ValidacionException(Constante.EXCEPTION_VEHICULO_PARQUEADO);
 	}
 
 	/**

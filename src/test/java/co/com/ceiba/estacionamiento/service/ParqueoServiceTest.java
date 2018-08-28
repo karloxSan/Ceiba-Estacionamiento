@@ -20,9 +20,7 @@ import co.com.ceiba.estacionamiento.builder.MotoSinPlacaSinCilindraje;
 import co.com.ceiba.estacionamiento.builder.ParqueoBuilderInicial;
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
 import co.com.ceiba.estacionamiento.entities.Parqueo;
-import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
-import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
-import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
+import co.com.ceiba.estacionamiento.exception.ValidacionException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 import co.com.ceiba.estacionamiento.services.IParqueoService;
 
@@ -65,7 +63,7 @@ public class ParqueoServiceTest {
 
 			assertNotNull(parqueo);
 
-		} catch (NoAutorizadoException | VehiculoParqueadoException | CapacidadExcedidaException e) {
+		} catch (ValidacionException e) {
 			e.printStackTrace();
 		}
 	}
@@ -85,7 +83,7 @@ public class ParqueoServiceTest {
 
 			assertNull(parqueo);
 
-		} catch (NoAutorizadoException | VehiculoParqueadoException | CapacidadExcedidaException e) {
+		} catch (ValidacionException e) {
 			e.printStackTrace();
 		}
 	}

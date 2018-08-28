@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
-import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
-import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
-import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
+import co.com.ceiba.estacionamiento.exception.ValidacionException;
 import co.com.ceiba.estacionamiento.services.IParqueoService;
 
 /**
@@ -51,8 +49,7 @@ public class ParqueoController {
 	 */
 	@PostMapping("/parqueadero")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ParqueoEntradaDto crearParqueo(@RequestBody ParqueoEntradaDto parqueoEntradaDto)
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	public ParqueoEntradaDto crearParqueo(@RequestBody ParqueoEntradaDto parqueoEntradaDto) throws ValidacionException {
 		return parqueoService.ingresarVehiculo(parqueoEntradaDto);
 	}
 

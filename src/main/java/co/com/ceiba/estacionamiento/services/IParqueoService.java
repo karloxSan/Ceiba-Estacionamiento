@@ -3,9 +3,7 @@ package co.com.ceiba.estacionamiento.services;
 import java.util.List;
 
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
-import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
-import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
-import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
+import co.com.ceiba.estacionamiento.exception.ValidacionException;
 
 /**
  * Interfaz del servicio que genera el contrato de los metodos a implementar
@@ -25,9 +23,9 @@ public interface IParqueoService {
 	 * 
 	 * @param parqueoEntradaDto El vehiculo que va a ser ingresado al parquedearo
 	 * @return el vehiculo ingresado
-	 * @throws NoAutorizadoException 
+	 * @throws NoAutorizadoException
 	 */
-	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto) throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException;
+	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto) throws ValidacionException;
 
 	/**
 	 * Metodo que permite buscar un vehiculo parqueado

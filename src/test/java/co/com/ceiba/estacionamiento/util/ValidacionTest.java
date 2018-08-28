@@ -22,9 +22,7 @@ import co.com.ceiba.estacionamiento.builder.MotoSinPlacaSinCilindraje;
 import co.com.ceiba.estacionamiento.builder.ParqueoBuilderInicial;
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
 import co.com.ceiba.estacionamiento.entities.Parqueo;
-import co.com.ceiba.estacionamiento.exception.CapacidadExcedidaException;
-import co.com.ceiba.estacionamiento.exception.NoAutorizadoException;
-import co.com.ceiba.estacionamiento.exception.VehiculoParqueadoException;
+import co.com.ceiba.estacionamiento.exception.ValidacionException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
 
 @RunWith(SpringRunner.class)
@@ -84,7 +82,7 @@ public class ValidacionTest {
 		try {
 			assertTrue(validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository));
 
-		} catch (NoAutorizadoException | VehiculoParqueadoException | CapacidadExcedidaException e) {
+		} catch (ValidacionException e) {
 			e.printStackTrace();
 		}
 	}
@@ -94,13 +92,10 @@ public class ValidacionTest {
 	 * Domingo o Lunes, en este caso debe lanzar NoAutorizadoException , ademas, el
 	 * carro no se encuentra parqueado y hay disponibilidad de lugares
 	 * 
-	 * @throws NoAutorizadoException
-	 * @throws CapacidadExcedidaException
-	 * @throws VehiculoParqueadoException
+	 * @throws ValidacionException
 	 */
-	@Test(expected = NoAutorizadoException.class)
-	public void validarIngresoCarroConPlacaSinDia()
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	@Test(expected = ValidacionException.class)
+	public void validarIngresoCarroConPlacaSinDia() throws ValidacionException {
 		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(carroConPlacaSinDia);
 		parqueoBuilderInicial.crearParqueo();
 
@@ -118,13 +113,10 @@ public class ValidacionTest {
 	 * Domingo o Lunes, en este caso debe lanzar NoAutorizadoException , ademas, el
 	 * carro no se encuentra parqueado y hay disponibilidad de lugares
 	 * 
-	 * @throws NoAutorizadoException
-	 * @throws CapacidadExcedidaException
-	 * @throws VehiculoParqueadoException
+	 * @throws ValidacionException
 	 */
-	@Test(expected = NoAutorizadoException.class)
-	public void validarIngresoMotoConPlacaSinDia()
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	@Test(expected = ValidacionException.class)
+	public void validarIngresoMotoConPlacaSinDia() throws ValidacionException {
 		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(motoConPlacaSinDIaSinCilindraje);
 		parqueoBuilderInicial.crearParqueo();
 
@@ -155,7 +147,7 @@ public class ValidacionTest {
 
 		try {
 			assertTrue(validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository));
-		} catch (NoAutorizadoException | VehiculoParqueadoException | CapacidadExcedidaException e) {
+		} catch (ValidacionException e) {
 			e.printStackTrace();
 		}
 	}
@@ -163,9 +155,8 @@ public class ValidacionTest {
 	/**
 	 * Valida el ingreso de la moto cuando esta se encuentra parqueado
 	 */
-	@Test(expected = VehiculoParqueadoException.class)
-	public void validarIngresoMotoParqueda()
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	@Test(expected = ValidacionException.class)
+	public void validarIngresoMotoParqueda() throws ValidacionException {
 		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(motoSinPlacaConCilindraje);
 		parqueoBuilderInicial.crearParqueo();
 
@@ -180,9 +171,8 @@ public class ValidacionTest {
 	/**
 	 * Valida el ingreso del carro cuando esta se encuentra parqueado
 	 */
-	@Test(expected = VehiculoParqueadoException.class)
-	public void validarIngresoCarroParqueda()
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	@Test(expected = ValidacionException.class)
+	public void validarIngresoCarroParqueda() throws ValidacionException {
 		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(carroSinPlacaSinDia);
 		parqueoBuilderInicial.crearParqueo();
 
@@ -197,9 +187,8 @@ public class ValidacionTest {
 	/**
 	 * Valida el ingreso de la moto cuando no hay disponibilidad del lugares
 	 */
-	@Test(expected = CapacidadExcedidaException.class)
-	public void validarIngresoMotoSinDiponibilidad()
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	@Test(expected = ValidacionException.class)
+	public void validarIngresoMotoSinDiponibilidad() throws ValidacionException {
 		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(motoConPlacaConDIaSinCilindraje);
 		parqueoBuilderInicial.crearParqueo();
 
@@ -214,9 +203,8 @@ public class ValidacionTest {
 	/**
 	 * Valida el ingreso del carro cuando no hay disponibilidad del lugares
 	 */
-	@Test(expected = CapacidadExcedidaException.class)
-	public void validarIngresoCarroSinDiponibilidad()
-			throws NoAutorizadoException, VehiculoParqueadoException, CapacidadExcedidaException {
+	@Test(expected = ValidacionException.class)
+	public void validarIngresoCarroSinDiponibilidad() throws ValidacionException {
 		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(carroSinPlacaSinDia);
 		parqueoBuilderInicial.crearParqueo();
 
