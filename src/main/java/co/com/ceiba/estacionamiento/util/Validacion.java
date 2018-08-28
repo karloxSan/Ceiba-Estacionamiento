@@ -30,6 +30,7 @@ public class Validacion {
 	public boolean ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto, ParqueoRepository parqueoRepository)
 			throws ValidacionException {
 
+		
 		// Valida si el vehiculo se encuentra parqueado
 		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) == null) {
 
