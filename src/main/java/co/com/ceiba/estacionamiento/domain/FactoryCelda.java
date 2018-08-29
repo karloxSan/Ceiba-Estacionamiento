@@ -21,5 +21,4 @@ public class FactoryCelda {
 		return celda;
 	}
 
-
 }

@@ -1,6 +1,7 @@
 package co.com.ceiba.estacionamiento.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,14 +26,19 @@ public class FactoryCeldaTest {
 	@Test
 	public void celdaCarro() {
 		celda = factoryCelda.getCelda(Constante.TIPO_CARRO);
-
 		assertEquals(Constante.CAPACIDAD_CARRO, celda.getMaximoCelda());
 	}
 
 	@Test
 	public void celdaMoto() {
 		celda = factoryCelda.getCelda(Constante.TIPO_MOTO);
-
 		assertEquals(Constante.CAPACIDAD_MOTO, celda.getMaximoCelda());
 	}
+
+	@Test
+	public void celdaNull() {
+		celda = factoryCelda.getCelda(Constante.INICIALIZADOR_A_VACIO);
+		assertNull(celda);
+	}
+
 }
