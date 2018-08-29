@@ -39,6 +39,7 @@ public class ValidacionTest {
 	private MotoConPlacaSinDIaSinCilindraje motoConPlacaSinDIaSinCilindraje;
 	private MotoSinPlacaConCilindraje motoSinPlacaConCilindraje;
 	private MotoSinPlacaSinCilindraje motoSinPlacaSinCilindraje;
+	
 	ParqueoRepository parqueoRepository;
 
 	@Before

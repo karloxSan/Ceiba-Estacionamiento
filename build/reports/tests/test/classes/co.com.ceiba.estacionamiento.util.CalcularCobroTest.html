@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.025s</div>
+<div class="counter">0.036s</div>
 <p>duration</p>
 </div>
 </td>
@@ -84,22 +84,22 @@
 </tr>
 <tr>
 <td class="success">cobrarCarroHora</td>
-<td class="success">0.004s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">cobrarMotoDiaConCilidraje</td>
-<td class="success">0.003s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">cobrarMotoDiaSinCilidraje</td>
-<td class="success">0.004s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">cobrarMotoHoraConCilidraje</td>
-<td class="success">0.005s</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -112,12 +112,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2018-08-26 19:36:29.302  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [co.com.ceiba.estacionamiento.util.CalcularCobroTest], using SpringBootContextLoader
-2018-08-26 19:36:29.304  INFO 6508 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [co.com.ceiba.estacionamiento.util.CalcularCobroTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2018-08-26 19:36:29.305  INFO 6508 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [co.com.ceiba.estacionamiento.util.CalcularCobroTest]: CalcularCobroTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2018-08-26 19:36:29.321  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration co.com.ceiba.estacionamiento.EstacionamientoApplication for test class co.com.ceiba.estacionamiento.util.CalcularCobroTest
-2018-08-26 19:36:29.323  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-2018-08-26 19:36:29.324  INFO 6508 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5c38dea4, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@56165fcf, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4f1f23f1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@579f4772, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4dc86edb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2944a88a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1ff206f8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@327b66a3, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3ccb7881, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@30c7976a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3f0d824c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@562aa570]
+<pre>2018-08-28 22:12:47.077  INFO 6756 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [co.com.ceiba.estacionamiento.util.CalcularCobroTest], using SpringBootContextLoader
+2018-08-28 22:12:47.078  INFO 6756 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [co.com.ceiba.estacionamiento.util.CalcularCobroTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2018-08-28 22:12:47.081  INFO 6756 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [co.com.ceiba.estacionamiento.util.CalcularCobroTest]: CalcularCobroTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2018-08-28 22:12:47.096  INFO 6756 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration co.com.ceiba.estacionamiento.EstacionamientoApplication for test class co.com.ceiba.estacionamiento.util.CalcularCobroTest
+2018-08-28 22:12:47.099  INFO 6756 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-08-28 22:12:47.100  INFO 6756 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@331a8df7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3d840248, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@589696f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@24d8324c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@434a6615, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5e41ba76, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@104d72c0, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@756268d7, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6508d2a0, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@3649467d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4de9f906, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2bab14bc]
 </pre>
 </span>
 </div>
@@ -129,7 +129,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 4.8.1</a> at Aug 26, 2018 7:36:30 PM</p>
+<a href="http://www.gradle.org">Gradle 4.8.1</a> at Aug 28, 2018 10:12:49 PM</p>
 </div>
 </div>
 </body>

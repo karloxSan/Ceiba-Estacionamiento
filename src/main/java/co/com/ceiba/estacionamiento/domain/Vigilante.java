@@ -63,9 +63,7 @@ public class Vigilante {
 	public ParqueoEntradaDto retirarVehiculo(String placa) {
 		Parqueo parqueo = parqueoRepository.findByPlaca(placa);
 
-		if (parqueo != null)
-
-		{
+		if (parqueo != null) {
 			parqueo.setFechaSalida(new Date());
 			double cobro = calcularCobro.calcularCobro(parqueo.getFechaIngreso(), parqueo.getFechaSalida(),
 					parqueo.getTipoVehiculo(), parqueo.getCilindraje());
