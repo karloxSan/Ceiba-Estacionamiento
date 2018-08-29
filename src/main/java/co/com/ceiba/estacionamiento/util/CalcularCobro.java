@@ -25,10 +25,10 @@ public class CalcularCobro {
 	 * @param fechaSalida  Fecha en la cual sale el vehiculo del parqueadero
 	 */
 	public void calcularDiferencia(Date fechaIngreso, Date fechaSalida) {
-		dias = 0;
-		horas = 0;
-		minutos = 0;
-		tiempoParqueado = "";
+		dias = Constante.INICIALIZADOR_A_CERO;
+		horas = Constante.INICIALIZADOR_A_CERO;
+		minutos = Constante.INICIALIZADOR_A_CERO;
+		tiempoParqueado = Constante.INICIALIZADOR_A_VACIO;
 
 		int diferencia = (int) ((fechaSalida.getTime() - fechaIngreso.getTime()) / Constante.DIVISION_MIL);
 
@@ -43,16 +43,10 @@ public class CalcularCobro {
 		if (diferencia >= Constante.MINUTO_MILISEGUNDO) {
 			minutos = (diferencia / Constante.MINUTO_MILISEGUNDO);
 		}
-		tiempoParqueado = "Dias: " + dias + "  Horas: " + horas + "  Minutos: " + minutos;
+		tiempoParqueado = Constante.DIAS + dias + Constante.HORAS + horas + Constante.MINUTOS + minutos;
 
 	}
 
-	/**
-	 * Metodo que permite calcular el cobro de un vehiculo
-	 * 
-	 * @param parqueoSalidaDto Vehiculo que se encuentyra parqueado
-	 * @return El respectivo cobro
-	 */
 	/**
 	 * Metodo que permite calcular el cobro de parqueo del vehiculo
 	 * 
@@ -74,28 +68,28 @@ public class CalcularCobro {
 	 * @param cilindraje Cilindraje de la moto o carro
 	 * @return Valor del cobro
 	 */
-	public double calcularCobroVehiculo(int cilindraje, String tipo) {
+	public double calcularCobroVehiculo(int cilindraje, String tipoVehiculo) {
 		double cobro;
-		tiempoCobrado = "";
+		tiempoCobrado = Constante.INICIALIZADOR_A_VACIO;
 
-		if (minutos > 0) {
+		if (minutos > Constante.INICIALIZADOR_A_CERO) {
 			horas++;
-			minutos = 0;
+			minutos = Constante.INICIALIZADOR_A_CERO;
 		}
 
-		if (horas >= 9) {
-			if (horas < 24) {
+		if (horas >= Constante.CANT_HORAS_COBRO_DIA) {
+			if (horas < Constante.CANT_HORAS_DIA) {
 				dias++;
-				horas = 0;
+				horas = Constante.INICIALIZADOR_A_CERO;
 			} else {
 				dias++;
-				horas -= 24;
+				horas -= Constante.CANT_HORAS_DIA;
 			}
 		}
 
-		tiempoCobrado = "Dias: " + dias + "  Horas: " + horas + "  Minutos: " + minutos;
+		tiempoCobrado = Constante.DIAS + dias + Constante.HORAS + horas + Constante.MINUTOS + minutos;
 
-		if (tipo.equalsIgnoreCase(Constante.TIPO_CARRO)) {
+		if (tipoVehiculo.equalsIgnoreCase(Constante.TIPO_CARRO)) {
 			cobro = ((dias * Constante.VALOR_DIA_CARRO) + (horas * Constante.VALOR_HORA_CARRO));
 		} else {
 			cobro = ((dias * Constante.VALOR_DIA_MOTO) + (horas * Constante.VALOR_HORA_MOTO));

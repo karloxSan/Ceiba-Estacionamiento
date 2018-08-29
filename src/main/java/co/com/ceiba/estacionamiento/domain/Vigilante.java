@@ -40,25 +40,25 @@ public class Vigilante {
 	 * Metodo que realiza el ingreso de un vehiculo al parqueadero
 	 * 
 	 * @param parqueoEntradaDto El vehiculo que desea ingresar
-	 * @return El vehiculo ingreso en caso exito, y null en cao contrario
-	 * @throws NoAutorizadoException
+	 * @return El vehiculo ingreso en caso exito, o ParqueoEntradaDto vacio en caso
+	 *         contrario
+	 * @throws ValidacionException
 	 */
 	public ParqueoEntradaDto ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto) throws ValidacionException {
+
 		parqueoEntradaDto.setFechaIngreso(new Date());
-		if (validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository)) {
+		validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository);
 
-			return modelMapper.map(parqueoRepository.saveAndFlush(modelMapper.map(parqueoEntradaDto, Parqueo.class)),
-					ParqueoEntradaDto.class);
-		}
+		return modelMapper.map(parqueoRepository.saveAndFlush(modelMapper.map(parqueoEntradaDto, Parqueo.class)),
+				ParqueoEntradaDto.class);
 
-		return null;
 	}
 
 	/**
 	 * Metodo que pertmite retirar un vehiculo del parqueadero
 	 * 
 	 * @param placa La placa del vehiculo que se desea retirar
-	 * @return El vehiculo retirado
+	 * @return El vehiculo retirado, , o ParqueoEntradaDto vacio en caso contrario
 	 */
 	public ParqueoEntradaDto retirarVehiculo(String placa) {
 		Parqueo parqueo = parqueoRepository.findByPlaca(placa);
@@ -74,7 +74,7 @@ public class Vigilante {
 			return modelMapper.map(parqueoRepository.save(parqueo), ParqueoEntradaDto.class);
 		}
 
-		return null;
+		return new ParqueoEntradaDto();
 	}
 
 	/**
@@ -93,7 +93,8 @@ public class Vigilante {
 	/**
 	 * Metodo que permite buscar un vehiculo parqueado
 	 * 
-	 * @param placa la placa del vehiculo
+	 * @param placa la placa del vehiculo, , o ParqueoEntradaDto vacio en caso
+	 *              contrario
 	 * @return el vehiculo que coincida con la placa
 	 */
 	public ParqueoEntradaDto findByPlaca(String placa) {
@@ -102,7 +103,7 @@ public class Vigilante {
 
 		if (parqueo != null)
 			return modelMapper.map(parqueo, ParqueoEntradaDto.class);
-		return null;
+		return new ParqueoEntradaDto();
 	}
 
 }

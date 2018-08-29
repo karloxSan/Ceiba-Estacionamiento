@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import org.springframework.stereotype.Component;
 
+import co.com.ceiba.estacionamiento.domain.Celda;
+import co.com.ceiba.estacionamiento.domain.FactoryCelda;
 import co.com.ceiba.estacionamiento.dtos.ParqueoEntradaDto;
 import co.com.ceiba.estacionamiento.exception.ValidacionException;
 import co.com.ceiba.estacionamiento.repositories.ParqueoRepository;
@@ -21,71 +23,25 @@ public class Validacion {
 	 * 
 	 * @param parqueoEntradaDto El vehiculo que desea ingresar
 	 * @param parqueoRepository el repositirio de datos
-	 * @return True si pasa con todas las validaciones de ingreso, false en caso
-	 *         contrario
 	 * @throws NoAutorizadoException
 	 * @throws VehiculoParqueadoException
 	 * @throws ValidacionException
 	 */
-	public boolean ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto, ParqueoRepository parqueoRepository)
+	public void ingresarVehiculo(ParqueoEntradaDto parqueoEntradaDto, ParqueoRepository parqueoRepository)
 			throws ValidacionException {
 
-		
-		// Valida si el vehiculo se encuentra parqueado
-		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) == null) {
+		FactoryCelda factoryCelda = new FactoryCelda();
 
-			if (validarCapacidadCarro(parqueoRepository.countByTipoVehiculo(Constante.TIPO_CARRO))
-					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_CARRO)) {
+		Celda celda = factoryCelda.getCelda(parqueoEntradaDto.getTipoVehiculo());
 
-				if (validarPlaca(parqueoEntradaDto)) {
-					if (!validarDia(parqueoEntradaDto)) {
-						throw new ValidacionException(Constante.EXCEPTION_NO_AUTORIZADO);
-					}
-				}
-				return true;
+		if (parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca()) != null)
+			throw new ValidacionException(Constante.EXCEPTION_VEHICULO_PARQUEADO);
 
-			}
-
-			if (validarCapacidadMoto(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO))
-					&& parqueoEntradaDto.getTipoVehiculo().equalsIgnoreCase(Constante.TIPO_MOTO)) {
-				if (validarPlaca(parqueoEntradaDto)) {
-
-					if (!validarDia(parqueoEntradaDto)) {
-
-						throw new ValidacionException(Constante.EXCEPTION_NO_AUTORIZADO);
-					}
-				}
-				return true;
-
-			}
-
+		if (parqueoRepository.countByTipoVehiculo(parqueoEntradaDto.getTipoVehiculo()) > celda.getMaximoCelda())
 			throw new ValidacionException(Constante.EXCEPTION_CAPACIDAD);
 
-		}
-
-		throw new ValidacionException(Constante.EXCEPTION_VEHICULO_PARQUEADO);
-	}
-
-	/**
-	 * Metodo que permite validar la capacidad del parqueadero para carros
-	 * 
-	 * @param cantCarro La cantidad de carros almacenados
-	 * @return True si aun se cuenta con espacios disponibles, False en caso
-	 *         contrario
-	 */
-	public boolean validarCapacidadCarro(long cantCarro) {
-		return cantCarro < Constante.CAPACIDAD_CARRO;
-	}
-
-	/**
-	 * Metodo que permite validar la capacidad del parqueadero para motos
-	 * 
-	 * @param cantMoto La cantidad de motos almacenados
-	 * @return True si aun se cuenta con espacios disponibles, False en caso
-	 *         contrario
-	 */
-	public boolean validarCapacidadMoto(long cantMoto) {
-		return cantMoto < Constante.CAPACIDAD_MOTO;
+		if (validarPlaca(parqueoEntradaDto) && !validarDia(parqueoEntradaDto))
+			throw new ValidacionException(Constante.EXCEPTION_NO_AUTORIZADO);
 	}
 
 	/**

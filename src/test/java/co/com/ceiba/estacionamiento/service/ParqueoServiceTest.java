@@ -1,6 +1,7 @@
 package co.com.ceiba.estacionamiento.service;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -115,7 +116,7 @@ public class ParqueoServiceTest {
 		ParqueoEntradaDto parqueo = parqueoService.retirarVehiculo(parqueoEntradaDto.getPlaca());
 		parqueoRepository.deleteAll();
 
-		assertNull(parqueo);
+		assertNotEquals(parqueoEntradaDto, parqueo);
 	}
 
 	// ----------------------------LISTAR VEHICULOS--------------------------
@@ -168,7 +169,7 @@ public class ParqueoServiceTest {
 		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
 		ParqueoEntradaDto parqueo = parqueoService.findByPlaca(parqueoEntradaDto.getPlaca());
 
-		assertNull(parqueo);
+		assertNotEquals(parqueoEntradaDto, parqueo);
 	}
 
 }

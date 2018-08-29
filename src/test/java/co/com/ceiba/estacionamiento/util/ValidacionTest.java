@@ -64,30 +64,6 @@ public class ValidacionTest {
 	// VEHICULO-----------------------
 
 	/**
-	 * Valida el ingreso del carro cuando la placa inica con A y el dia es Domingo o
-	 * Lunes, ademas, el carro no se encuentra parqueado y hay disponibilidad de
-	 * lugares
-	 */
-	@Test
-	public void validarIngresoCarroConPlacaConDia() {
-		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(carroConPlacaConDia);
-		parqueoBuilderInicial.crearParqueo();
-
-		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
-
-		when(parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca())).thenReturn(null);
-
-		when(parqueoRepository.countByTipoVehiculo(Constante.TIPO_CARRO)).thenReturn((long) 0);
-
-		try {
-			assertTrue(validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository));
-
-		} catch (ValidacionException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Valida el ingreso del carro cuando la placa inicia con A y el dia no es
 	 * Domingo o Lunes, en este caso debe lanzar NoAutorizadoException , ademas, el
 	 * carro no se encuentra parqueado y hay disponibilidad de lugares
@@ -127,29 +103,6 @@ public class ValidacionTest {
 		when(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO)).thenReturn((long) 0);
 
 		validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository);
-	}
-
-	/**
-	 * Valida el ingreso de la moto cuando la placa inica con A y el dia es Domingo
-	 * o Lunes, ademas, el carro no se encuentra parqueado y hay disponibilidad de
-	 * lugares
-	 */
-	@Test
-	public void validarIngresoMotoConPlacaConDia() {
-		parqueoBuilderInicial.setParqueoEntradaDtoBuilder(motoConPlacaConDiaConCilindraje);
-		parqueoBuilderInicial.crearParqueo();
-
-		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
-
-		when(parqueoRepository.findByPlaca(parqueoEntradaDto.getPlaca())).thenReturn(null);
-
-		when(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO)).thenReturn((long) 0);
-
-		try {
-			assertTrue(validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository));
-		} catch (ValidacionException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -195,7 +148,6 @@ public class ValidacionTest {
 		ParqueoEntradaDto parqueoEntradaDto = parqueoBuilderInicial.getParqueoEntradaDtoBuilder();
 
 		when(parqueoRepository.countByTipoVehiculo(Constante.TIPO_MOTO)).thenReturn((long) 11);
-
 		validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository);
 
 	}
@@ -213,29 +165,6 @@ public class ValidacionTest {
 		when(parqueoRepository.countByTipoVehiculo(Constante.TIPO_CARRO)).thenReturn((long) 21);
 
 		validacion.ingresarVehiculo(parqueoEntradaDto, parqueoRepository);
-
-	}
-
-	// -------------------------VALIDA LA CAPACIDAD DEL
-	// PARQUEADERO------------------
-	@Test
-	public void validarCapacidadCarroTrue() {
-		assertTrue(validacion.validarCapacidadCarro(15));
-	}
-
-	@Test
-	public void validarCapacidadCarroFalse() {
-		assertFalse(validacion.validarCapacidadCarro(20));
-	}
-
-	@Test
-	public void validarCapacidadMotoTrue() {
-		assertTrue(validacion.validarCapacidadMoto(8));
-	}
-
-	@Test
-	public void validarCapacidadMotoFalse() {
-		assertFalse(validacion.validarCapacidadMoto(11));
 	}
 
 	// -------------------------VALIDA LA PLACA DEL VEHICULO------------------
