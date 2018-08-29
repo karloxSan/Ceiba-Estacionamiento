@@ -43,7 +43,6 @@ public class Validacion {
 		if (validarPlaca(parqueoEntradaDto) && !validarDia(parqueoEntradaDto))
 			throw new ValidacionException(Constante.EXCEPTION_NO_AUTORIZADO);
 	}
-
 	/**
 	 * Metodo que permite validar si el cilindraje de la moto es mayor a 500 cc
 	 * 
